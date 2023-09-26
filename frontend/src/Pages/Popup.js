@@ -1,18 +1,18 @@
 import React from 'react'
-import { useHistory} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 const Popup = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const yesBUtton = ()=>{
         let link="";
         link += prompt("Enter the Goggle sheets link : ");
         console.log(link);
-        history.push('/sheet',{data:link})
+        navigate('/sheet',{data:link})
        }
        const noButton = ()=>{
            let nope = "agnes";
-           history.push('/sheet',{data:nope});
+           navigate('/sheet',{data:nope});
        }
   return (
     <div className="popup-component">

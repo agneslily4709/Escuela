@@ -5,7 +5,7 @@ const AllCertificates = () => {
   const[loading,setLoading] = useState(false);
   const callAllCertificates = async () =>{
     try {
-      const res = await fetch('/getAllData',{
+      const res = await fetch('http://localhost:5000/api/getAllData',{
         method:"GET",
         headers:{
           Accept:"appllication/json",
@@ -15,7 +15,6 @@ const AllCertificates = () => {
       })
       const info = await res.json();
       setAllCert(info);
-      console.log(info);
       if(!res.status===200){
         const error = new Error (res.error);
         throw error;

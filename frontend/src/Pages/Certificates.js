@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import './styles.css'
+import '../styles.css'
 const Certificates = () => {
   const [data,setData] = useState([]);
   const [reset,setReset] = useState(false);
   let cert;
   const callCertificate = async ()=>{
     try {
-      const res = await fetch('/getData',{
+      const res = await fetch('http://localhost:5000/api/getData',{
         method:"GET",
         headers:{
           Accept:"appllication/json",
@@ -29,13 +29,13 @@ if(reset)
     callCertificate ();
   },[])
   return (
-    <div className='certificate-component'>
-        <div className='cards-field'>
-      {data && data.map((m)=>(
+    <div className='certificate'>
+        <div className='certificate-gallery'>
+      {data && data.map((m,i)=>(
         <>
-        <div className='single-field'>
-          <h5>{m.title}</h5>
-          <img src={m.selectedFile} alt=""/>
+        <div className='certificate-card' key={i}>
+          <h5 className='certificate-title'>{m.title}</h5>
+          <img className='certificate-img' src={m.selectedFile} alt={`${m.title} Certificate`}/>
         </div>
         </>
       ))}

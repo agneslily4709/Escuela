@@ -1,24 +1,24 @@
 import React from 'react'
 import { useEffect ,useState,useContext} from 'react'
-import { useHistory } from 'react-router-dom';
-import {userContext} from "../../../App"
+import { useNavigate } from 'react-router-dom';
+import {userContext} from "../App"
 
 const Logout = () => {
 
     const {state,dispatch} = useContext(userContext);
 
-    const history = useHistory();
+    const navigate = useNavigate();
     useEffect(()=>{
-        fetch('/logout',{
+        fetch('http://localhost:5000/api/logout',{
             method:'GET',
             headers:{
-                Accept:'appllication/json',
+                Accept:'application/json',
                 'Content-Type':'application/json'
             },
             credentials:'include'
         }).then((res)=>{
             dispatch({type:"USER",payload:false});
-            history.push('/login',{replace:true});
+            navigate('/login');
             if(res.status !== 200){
                 const error = new Error(res.error);
                 throw error;

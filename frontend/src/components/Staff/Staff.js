@@ -31,9 +31,9 @@ const Staff = () => {
 
   return (
     <div>
-        <div class="bg"></div>
+        {/* <div class="bg"></div>
         <div class="bg bg2"></div>
-        <div class="bg bg3"></div>
+        <div class="bg bg3"></div> */}
         <div class="content">
             <h1>GOOD DAY</h1>
             <h2>For Mark, Click below</h2>

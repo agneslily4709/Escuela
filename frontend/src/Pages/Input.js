@@ -1,14 +1,16 @@
 import React,{useState,useEffect} from 'react'
-import './styles.css'
-import { useHistory } from 'react-router-dom';
+import "../styles.css"
+import { useNavigate } from 'react-router-dom';
 import FileBase from 'react-file-base64';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Input = () => {
     const [data,setData] = useState({title:"",selectedFile:""});
-    const history = useHistory();
+    const navigate = useNavigate();
     const userCertificate = async()=>{
         try{
-            const res =await fetch('/getData',{
+            const res =await fetch('http://localhost:5000/api/getData',{
                 method:"GET",
                 headers:{
                   "Content-Type":"application/json"
@@ -32,51 +34,51 @@ const Input = () => {
     const putData = async(e)=>{
         e.preventDefault();
         const {title,selectedFile} = data;
-        const result = await fetch('/certificate',{
+        const result = await fetch('http://localhost:5000/api/certificate',{
             method:"POST",
             headers:{
               "Content-Type":"application/json"
             },
+            credentials:"include",
             body:JSON.stringify({
               title,selectedFile
             })
         });
         const out = await result.json();
-        if(result.status ==201  || !out)
+        if(result.status ==201)
         {
-            console.log("Upload success");
-            history.push("/certificate");
+                toast.success("Upload success",{
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                        autoClose: 1000,
+                })
+                setTimeout(()=>navigate("/certificate"),2000)
         }
         else{
-            console.log("Upload success");
-            setData({...data,
-                selectedFile:"",title:""
-               
-            })
+                toast.error(out.error,{
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                        autoClose: 1000,
+              })
+            setData({...data,selectedFile:"",title:""})
         }
     }
   return (
-    <div className='input-component'>
-        <form method='POST' className='uploadpicform'>
-            <h3 className='inputheading'>CERTIFICATE DETAILS</h3>
+    <div className='my-container'>
+        <form method='POST' className='form-component'>
+            <h1>CERTIFICATE DETAILS</h1>
         <input
-                className='form_field picuploadform'
                 placeholder="Enter title"
                 type="text"
                 value={data.title}
                 onChange={(e) => setData({ ...data, title: e.target.value })}    
                 name="title"            
             />
-            <div className='file_input picuploadforminput'>
             <FileBase  className="file-upload"
                 name="selectedFile" type="file" multiple={false}
                 onDone={({ base64 }) => setData({
                     ...data, selectedFile: base64 })} />
-            </div>
-        <div>
-        <button className='buttons btn btn-primary' value="put" onClick={putData}>Post</button>
-        </div>
+        <button className='my-button' value="put" onClick={putData}>Post</button>
         </form>
+        <ToastContainer/>
     </div>
   )
 }

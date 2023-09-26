@@ -2,10 +2,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../Model/Model.js";
 
-export async function registerUser(req, res) {
+export const registerUser = async(req, res)=> {
   const { name, email, password, regno, dept, year } = req.body;
   if (!name || !email || !password || !regno || !dept || !year) {
-    return res.status(422).json({ error: "Fill all fields" });
+    return res.status(422).json({ error:"Please fill in all required fields." });
   }
   try {
     const userExist = await User.findOne({ email: email });
@@ -21,48 +21,44 @@ export async function registerUser(req, res) {
   }
 }
 
-export async function loginUser(req, res) {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ error: "Fill all fields" });
-    }
-    const userLogin = await User.findOne({ email: email });
-    if (userLogin) {
-      const isMatch = await bcrypt.compare(password, userLogin.password);
-      const token = await userLogin.generateAuthToken();
-      res.cookie("jwtoken", token, {
-        httpOnly: true,
-        expires: new Date(Date.now() + 3600000),
-      });
-      if (!isMatch) {
-        res.status(400).json({ error: "Invalid credentials" });
-      } else {
-        res.status(200).json({ message: "signin success" });
+export const loginUser = async(req, res) => {
+        try {
+          const { email, password } = req.body;
+          if (!email || !password) {
+            return res.status(400).json({ error: "Missing credentials: mail or password" });
+          }
+          const userLogin = await User.findOne({ email: email });
+          if (userLogin) {
+            const isMatch = await bcrypt.compare(password, userLogin.password);
+            if (!isMatch) {
+              res.status(400).json({ error: "Invalid credentials" });
+            } else {
+              const token = await userLogin.generateAuthToken();
+              res.cookie("jwtoken", token, {
+                httpOnly: true,
+                expires: new Date(Date.now() + 3600000),
+              });
+              res.status(200).json({ message: "Login success" });
+            }
+          } else {
+            res.status(400).json({ error: "User not found" });
+          }
+        } catch (err) {
+          console.log(err);
+        }
       }
-    } else {
-      res.status(400).json({ error: "Invalid credentials" });
-    }
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export function getUserProfile(req, res) {
-  console.log(`about`);
+export const getUserProfile = (req, res) =>{
   res.send(req.rootUser);
 }
 
-export function getData(req, res) {
-  console.log(`Contact`);
+export const getData = (req, res) =>{
   res.send(req.rootUser);
 }
 
-export async function contactUser(req, res) {
+export const contactUser = async(req, res)=> {
   try {
     const { name, email, message } = req.body;
     if (!name || !email || !message) {
-      console.log("error in contact");
       return res.status(422).json({ error: "Fill all contact fields" });
     }
     const userContact = await User.findOne({ _id: req.rootUserId });
@@ -72,36 +68,33 @@ export async function contactUser(req, res) {
       return res.status(201).json({ message: "Message sent successfully" });
     }
   } catch (error) {
-    console.log(error);
+    res.status(404).json({error:error})
   }
 }
 
-export async function addCertificate(req, res) {
+export const addCertificate  =async(req, res)=> {
   try {
     const { title, selectedFile } = req.body;
     if (!title || !selectedFile) {
-      console.log("error in certificate");
-      return res.status(422).json({ error: "Please fill all fields" });
+      return res.status(422).json({ error: "Please fill in all required fields." });
     }
     const dataExist = await User.findOne({ _id: req.rootUserId });
     if (dataExist) {
-      console.log("hello");
       const userCertificate = await dataExist.addCertificate(title, selectedFile);
       await dataExist.save();
-      return res.status(201).json({ message: "Data saved" });
+      return res.status(201).json({ message: "Upload Success" });
     }
   } catch (error) {
-    console.log("error: " + error);
+    res.status(422).json({error:error})
   }
 }
 
-export function logoutUser(req, res) {
-  console.log(`logout`);
+export const logoutUser = (req, res)=> {
   res.clearCookie("jwtoken", { path: "/" });
   res.status(200).send(`userLogout`);
 }
 
-export async function getAllData(req, res) {
+export const getAllData = async(req, res)=> {
   try {
     const allCertificates = await User.find();
     res.status(200).json(allCertificates);

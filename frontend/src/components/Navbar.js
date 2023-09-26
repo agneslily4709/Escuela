@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
-import { userContext } from '../../App';
+import { userContext } from '../App';
 import { useContext } from 'react';
 export default function Navbar(props) {
     const { state } = useContext(userContext);
@@ -10,20 +10,19 @@ export default function Navbar(props) {
             return(
                 <>
                 
-                <nav class="navbar navbar-expand-lg py-3 fixed-top" style={{backgroundColor:"#0b4524"}}>
+                <nav class="navbar navbar-expand-lg my-navbar py-3 fixed-top">
                         <div class="container">
-                        <a class="navbar-brand text-light" href="/">ESCUELA</a>
+                        <a class="navbar-brand my-navbar-item" href="/">ESCUELA</a>
                             <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class=" text-light" style={{color:"red"}}>↓↓↓</span>
+                            <span class=" " style={{color:"red"}}>↓↓↓</span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                            <li className="nav-item"><Link className="nav-link text-light" to="/profile" >Profile</Link></li>
-                            <li className="nav-item"><Link className="nav-link text-light" to="/contact" >Contact</Link></li>
-                            <li className="nav-item"><Link className="nav-link text-light" to="/mail" >Mail</Link></li>
-                            
-                            <li className="nav-item"><Link className="nav-link text-light" to="/certificate" >Certificate</Link></li>
-                            <li className="nav-item"><Link className="nav-link text-light" to="/logout" >Logout</Link></li>
+                            <li className="nav-item"><Link className="nav-link my-navbar-item" to="/profile" >Profile</Link></li>
+                            <li className="nav-item"><Link className="nav-link my-navbar-item" to="/contact" >Contact</Link></li>
+                            <li className="nav-item"><Link className="nav-link my-navbar-item" to="/mail" >Mail</Link></li>
+                            <li className="nav-item"><Link className="nav-link my-navbar-item" to="/certificate" >Certificate</Link></li>
+                            <li className="nav-item"><Link className="nav-link my-navbar-item" to="/logout" >Logout</Link></li>
                     </ul>
                     </div>
                 </div>
@@ -34,17 +33,17 @@ export default function Navbar(props) {
         else{
             return(
                 <>
-                <nav class="navbar py-3 fixed-top navbar-expand-lg" style={{backgroundColor:"#0b4524"}}>
+                <nav class="navbar my-navbar py-3 fixed-top navbar-expand-lg">
                 <div class="container">
-                    <li class="navbar-brand text-light" >ESCUELA</li>
+                    <li class="navbar-brand my-navbar-item">ESCUELA</li>
                     <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class=" text-light" style={{color:"red"}}>↓↓↓</span>
+                    <span class=" " style={{color:"red"}}>↓↓↓</span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li className="nav-item"><Link className="nav-link text-light" to="/register"> Register </Link></li>
-                    <li className="nav-item"><Link className="nav-link text-light" to="/login" > Login</Link></li>
-                    <li className="nav-item"><Link className="nav-link text-light" to="/staff" > Staff</Link></li>
+                    <li className="nav-item"><Link className="nav-link my-navbar-item" to="/register"> Register </Link></li>
+                    <li className="nav-item"><Link className="nav-link my-navbar-item" to="/login" > Login</Link></li>
+                    <li className="nav-item"><Link className="nav-link my-navbar-item" to="/staff" > Staff</Link></li>
                     </ul>
                     </div>
                 </div>
@@ -56,11 +55,7 @@ export default function Navbar(props) {
     }
 
     return (
-        <>
-        
-                        <RenderMenu />
-                    
-        </>
+        <><RenderMenu /></>
     )
 }
 

@@ -1,5 +1,5 @@
 import {React,useState,useEffect} from 'react';
-import './styles.css'
+import '../styles.css'
 
 const Contact = () => {
   const [userData,setUserData] = useState({
@@ -10,14 +10,13 @@ const Contact = () => {
 
   const userContact = async () =>{
     try{
-      const res =await fetch('/getData',{
+      const res =await fetch('http://localhost:5000/api/getData',{
           method:"GET",
           headers:{
             "Content-Type":"application/json"
           },
       });
       const data = await res.json();
-      console.log(data);
       setUserData({...userData,name:data.name,email:data.email,phone:data.phone});
 
       if(!res.status===200){
@@ -44,7 +43,7 @@ setUserData({...userData,[name]:value});
 const contactForm = async (e)=>{
   e.preventDefault();
   const {name,email,phone,message} = userData;
-  const res = fetch('/contact',{
+  const res = fetch('http://localhost:5000/api/contact',{
     method:"POST",
     headers:{
       "Content-Type":"application/json"
@@ -52,7 +51,6 @@ const contactForm = async (e)=>{
     body:JSON.stringify({name,email,phone,message})
   })
   const data = await res.json();
-  // console.log(data);
   if( res.status == 201 ||!data){
     window.alert("Please fill all fields");
   }else{
@@ -65,27 +63,20 @@ const contactForm = async (e)=>{
 
   return (
     <>
-    <div className='contact-component'> 
-       <h3 className='heading'>Contact Form</h3>
-    <form method='POST'>
-    <div className="mb-3">
-        <label htmlFor="name" for="exampleInputEmail1" className="form-label">Name</label>
+    <div className='my-container'> 
+    <form method='POST' className='form-component'>
+    <h1 className='form-title'>Contact Form</h1>
+        {/* <label htmlFor="name" for="exampleInputEmail1" className="form-label">Name</label> */}
          <input type="text" className="form-control" id="name" name="name" autoComplete="off" placeholder="Enter userName" value={userData.name} onChange={handleInputs} aria-describedby="emailHelp" />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="email" for="exampleInputEmail1" className="form-label">Email</label>
+        {/* <label htmlFor="email" for="exampleInputEmail1" className="form-label">Email</label> */}
          <input type="email" className="form-control" id="email" name="email" autoComplete="off" placeholder="Enter email"  value={userData.email} onChange={handleInputs} aria-describedby="emailHelp" />
-       </div>
-       <div className="mb-3">
-         <label htmlFor="phone" for="exampleInputEmail1" className="form-label">Phone</label>
+         {/* <label htmlFor="phone" for="exampleInputEmail1" className="form-label">Phone</label> */}
          <input type="number" className="form-control" id="phone" name="phone" autoComplete="off" placeholder="Enter phone " value={userData.phone} onChange={handleInputs} aria-describedby="emailHelp" />
-        </div>
 
-          <div className="text-field">
-            <textarea placeholder="Message" name="message" value={userData.message} onChange={handleInputs}></textarea>
-          </div>
+          {/* <label htmlFor="message" for="exampleInputEmail1" className="form-label">Message</label> */}
+            <textarea placeholder="Message"  className="form-control"  name="message" value={userData.message} onChange={handleInputs}></textarea>
 
-      <button type="submit" name="submit" id="submit" value="submit" onClick={contactForm} class="btn btn-primary">Submit</button>
+      <button type="submit" name="submit" id="submit" value="submit" onClick={contactForm} class="my-button">Submit</button>
       </form>      
     </div>
 
