@@ -1,5 +1,4 @@
 import {React,useState,useEffect} from 'react'
-import emailjs from 'emailjs-com';
 import '../styles.css';
 
 const Notification = () => {
@@ -19,14 +18,31 @@ const [notification,setNotification] = useState([])
       console.log(err);
     }
   }
+  const formatDateTime = (dateTimeString) => {
+        const date = new Date(dateTimeString);
+      
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+      
+        return `Date: ${day}-${month}-${year} Time: ${hours}:${minutes}`;
+      };
 useEffect(() => {
   fetchData();
 }, [])
 
       
   return (
-    <div className='my-container'>
-        
+    <div className='my-notification'>
+        <h1 className='form-title'>Announcements</h1>
+{notification ? notification.map((message, index) => (
+  <div key={index} className='notification'>
+    <p>{message.message}</p>
+    <small>{formatDateTime(message.createdAt)}</small>
+  </div>
+)) : <></>}
     </div>
   )
 }

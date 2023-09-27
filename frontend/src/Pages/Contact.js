@@ -27,21 +27,12 @@ const Contact = () => {
 useEffect(() => {
   fetchData();
 }, [])
-// const [data, setData] = useState({
-//         from_name:'',
-//   subject: '',
-//   email: '',
-//   regno: '',
-//   dept: '',
-//   message:'',
-// })
+
 const submitHandler = (e) => {
         e.preventDefault();
-      
         emailjs
           .sendForm('service_x1botxp', 'template_fzn1boi', e.target, '1ueGVojCge8VE1EvM')
           .then((result) => {
-            console.log(result.text);
           })
           .catch((error) => {
             console.error('Email sending error:', error);

@@ -5,17 +5,15 @@ const ExcelSheet = () => {
   const [loading, setLoading] = useState(false);
   const [coluum, setColumn] = useState([]);
   const [mark, setMark] = useState([]);
-  let rows, cols;
 
   const url = 'https://docs.google.com/spreadsheets/d/1ehq3HdmLc3pYj4HF0W5rQh8UafY1_AbMxHmt_HxVXcE/gviz/tq?';
 
-console.log(url)
   useEffect(() => {
+         let rows, cols;
     setLoading(true);
     fetch(url)
       .then((response) => response.text())
       .then((data) => {
-        console.log(data)
         const hold = data.substring(47).slice(0, -2);
         const jsonFormat = JSON.parse(hold);
         cols = jsonFormat.table.cols;
@@ -36,9 +34,9 @@ console.log(url)
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table className='table table-striped my-table'>
+        <table className='table my-table'>
           <thead>
-            <tr>
+            <tr className='my-row'>
               {coluum &&
                 coluum.map((c, index) => (
                   <th scope='col' key={index}>{c.label}</th>
@@ -48,7 +46,7 @@ console.log(url)
             <tbody>
             {mark &&
               mark.map((m, index) => (
-                <tr key={index} scope="row">
+                <tr className='my-row' key={index}>
                   {m.c.map((i, subIndex) => (
                     <td key={subIndex}>{i.v}</td>
                   ))}

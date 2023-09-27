@@ -37,7 +37,7 @@ const Routing = () => {
           <Route exact path="/input" element={<Input />} />
 
           <Route exact path="/contact" element={<Contact />} />
-          <Route exact path="/mail" element={<Notification />} />
+          <Route exact path="/announcements" element={<Notification />} />
           <Route exact path="/sheet" element={<ExcelSheet />} />
           <Route exact path="/staff" element={<Staff />} />
           <Route exact path="/upload" element={<Popup />} />
@@ -62,7 +62,6 @@ const token = Cookies.get('jwtoken');
       };
       useEffect(() => {
         checkAuthentication();
-        setTimeout(()=>console.log(authState),3000)
 }, []);
   return (
     <>

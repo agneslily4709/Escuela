@@ -42,7 +42,7 @@ const Popup = () => {
     <div className="my-container">
             <form method='POST' className='form-component'>
     <h3 className='form-title'>Announcements</h3>
-        <input  onChange={(e)=>setMessage(e.target.value)}  placeholder="Enter Message"  type="text"  value={message}  name="mail"  required/> 
+        <textarea rows={3}  onChange={(e)=>setMessage(e.target.value)}  placeholder="Enter Message"  type="text"  value={message}  name="mail"  required/> 
             <button className='my-button' value="login" onClick={handlePost}>Post Announcement</button>
     </form>
     <ToastContainer/>

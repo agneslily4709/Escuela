@@ -19,7 +19,7 @@ export default function Navbar(props) {
                             <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
                             <li className="nav-item"><Link className="nav-link my-navbar-item" to="/profile" >Profile</Link></li>
                             <li className="nav-item"><Link className="nav-link my-navbar-item" to="/contact" >Contact</Link></li>
-                            <li className="nav-item"><Link className="nav-link my-navbar-item" to="/mail" >Mail</Link></li>
+                            <li className="nav-item"><Link className="nav-link my-navbar-item" to="/announcements" >Announcements</Link></li>
                             <li className="nav-item"><Link className="nav-link my-navbar-item" to="/certificate" >Certificate</Link></li>
                             <li className="nav-item"><Link className="nav-link my-navbar-item" to="/logout" >Logout</Link></li>
                     </ul>

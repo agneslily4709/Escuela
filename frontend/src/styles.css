@@ -10,7 +10,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color:#E3E3E3;
+        background-image: radial-gradient(#dedede,#94bbe9);
         justify-content: center;
         height: 100vh;
     }
@@ -71,12 +71,13 @@
 .certificate-card{
         border: 1px solid black;
         border-radius: 10px;
+        background-color: #1e3b6e;
         margin: 20px;
 }
 .certificate-title{
         text-align: center;
         text-transform: uppercase;
-        color: crimson;
+        color: white;
 }
 .certificate-img{
         width: 100%;
@@ -86,6 +87,7 @@
 /* Home */
 .home{
         background-image: radial-gradient(#dedede,#94bbe9);
+        text-align: center;
 }
 .welcome-text{
         font-size: 30px;
@@ -94,9 +96,12 @@
 .my-table{
         border: 2px solid #1e3b6e;
         margin: 40px 20px;
-        background-color:rgb(212, 231, 255);
+        background-image: radial-gradient(#dedede,#94bbe9);
         width: 75% !important;
         text-align: center;
+}
+.my-row{
+        background-color: #E3E3E3;
 }
 .error-img{
         border-radius: 20px;
@@ -110,7 +115,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color:#E3E3E3;
         justify-content: center;
         height: auto;
         margin-top: 70px;
@@ -120,7 +124,24 @@
         text-align: center;
         color: red;
 }
-
+.my-notification{
+        margin-top: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color:#E3E3E3;
+        justify-content: center;
+        height: auto;
+    }
+.notification{
+        width: 700px;
+        border: 2px solid #1e3b6e;
+        border-radius: 8px;
+        margin: 20px 0px;
+        background-color: #fff;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding: 10px;
+}
 @media screen and (max-device-width: 360px) and (max-device-height: 640px) and (orientation: portrait) {
         .welcome-text{
                 font-size: 20px;
@@ -173,5 +194,14 @@
                 text-align: center;
                 color: red;
                 font-size: 20px;
+        }
+        .notification{
+                width: 300px;
+                overflow: scroll;
+                border: 2px solid #1e3b6e;
+                border-radius: 8px;
+                margin: 20px 0px;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                padding: 10px;
         }
 }

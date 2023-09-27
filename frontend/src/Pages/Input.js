@@ -8,29 +8,29 @@ import 'react-toastify/dist/ReactToastify.css';
 const Input = () => {
     const [data,setData] = useState({title:"",selectedFile:""});
     const navigate = useNavigate();
-    const userCertificate = async()=>{
-        try{
-            const res =await fetch('http://localhost:5000/api/getData',{
-                method:"GET",
-                headers:{
-                  "Content-Type":"application/json"
-                },
-            });
-            const cert = await res.json();
-            console.log(cert);
-            setData({...data,title:cert.title,selectedFile:cert.selectedFile});
-            if(!res.status===200)
-            {
-                const error = new Error (res.error);
-                throw error;
-            }
-        }catch(err){
-            console.log(err);
-          }
-    }
+
     useEffect(() => {
+        const userCertificate = async () => {
+            try {
+                const res = await fetch('http://localhost:5000/api/getData', {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                });
+                const cert = await res.json();
+                setData({ ...data, title: cert.title, selectedFile: cert.selectedFile });
+                if (res.status !== 200) {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            } catch (err) {
+                console.error(err); 
+            }
+        }
         userCertificate();
-      }, [])
+    }, []);
+    
     const putData = async(e)=>{
         e.preventDefault();
         const {title,selectedFile} = data;

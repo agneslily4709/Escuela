@@ -65,12 +65,10 @@ router.post('/login',async (req,res)=>{
 });
 
 router.get('/profile',authenticate,(req,res)=>{
-    console.log(`about`);
     res.send(req.rootUser);
 });
 
 router.get('/getData',authenticate,(req,res)=>{
-    console.log(`Contact`);
     res.send(req.rootUser);
 })
 // contact us
@@ -103,8 +101,7 @@ router.post('/certificate',authenticate,async(req,res)=>{
         const dataExist = await User.findOne({_id:req.rootUserId})
         if(dataExist)
         {
-            console.log("hello");
-            const userCertificate = await dataExist.addCertificate(title,selectedFile);
+            await dataExist.addCertificate(title,selectedFile);
             await dataExist.save();
             return res.status(201).json({message:"DATA sabved"})
         }
@@ -115,8 +112,6 @@ router.post('/certificate',authenticate,async(req,res)=>{
 // logout
 
 router.get('/logout',(req,res)=>{
-    console.log(`logout`);
-    // res.send(`Hello about`);
     res.clearCookie('jwtoken',{path:'/'})
     res.status(200).send(`userLogout`);
 });
