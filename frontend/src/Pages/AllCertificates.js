@@ -5,7 +5,7 @@ const AllCertificates = () => {
   const[loading,setLoading] = useState(false);
   const callAllCertificates = async () =>{
     try {
-      const res = await fetch('http://localhost:5000/api/getAllData',{
+      const res = await fetch('https://escuela-be.onrender.com/api/getAllData',{
         method:"GET",
         headers:{
           Accept:"application/json",

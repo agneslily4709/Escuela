@@ -9,7 +9,7 @@ const Contact = () => {
   const [userData,setUserData] = useState({});
   const fetchData = async () =>{
     try{
-      const res =await fetch('http://localhost:5000/api/getData',{
+      const res =await fetch('https://escuela-be.onrender.com/api/getData',{
           method:"GET",
           headers:{
             Accept:"appllication/json",

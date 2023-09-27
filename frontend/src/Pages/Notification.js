@@ -5,7 +5,7 @@ const Notification = () => {
 const [notification,setNotification] = useState([])
         const fetchData = async () =>{
     try{
-      const res =await fetch('http://localhost:5000/api/getAllNotifications',{
+      const res =await fetch('https://escuela-be.onrender.com/api/getAllNotifications',{
           method:"GET",
           headers:{
             Accept:"application/json",

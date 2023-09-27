@@ -10,7 +10,7 @@ const Popup = () => {
         e.preventDefault();
       
         try {
-          const res = await fetch(`http://localhost:5000/api/postNotification`, {
+          const res = await fetch(`https://escuela-be.onrender.com/api/postNotification`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

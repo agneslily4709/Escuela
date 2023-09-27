@@ -11,7 +11,7 @@ const Input = () => {
     const putData = async(e)=>{
         e.preventDefault();
         const {title,selectedFile} = data;
-        const result = await fetch('http://localhost:5000/api/certificate',{
+        const result = await fetch('https://escuela-be.onrender.com/api/certificate',{
             method:"POST",
             headers:{
               "Content-Type":"application/json"

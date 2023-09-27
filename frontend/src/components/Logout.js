@@ -9,7 +9,7 @@ const Logout = () => {
 
     const navigate = useNavigate();
     useEffect(()=>{
-        fetch('http://localhost:5000/api/logout',{
+        fetch('https://escuela-be.onrender.com/api/logout',{
             method:'GET',
             headers:{
                 Accept:'application/json',
