@@ -1,12 +1,15 @@
 import {React,useState,useEffect} from 'react'
 import emailjs from 'emailjs-com';
 import '../styles.css';
-
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Contact = () => {
+        const navigate  = useNavigate()
   const [userData,setUserData] = useState({});
   const fetchData = async () =>{
     try{
-      const res =await fetch('http://localhost:5000/api/profile',{
+      const res =await fetch('http://localhost:5000/api/getData',{
           method:"GET",
           headers:{
             Accept:"appllication/json",
@@ -35,10 +38,18 @@ const submitHandler = (e) => {
           .then((result) => {
           })
           .catch((error) => {
-            console.error('Email sending error:', error);
+            toast.error(error,{
+                position: toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 1000,
+      })
           });
       
         e.target.reset();
+        toast.success("Mail sent successfullt",{
+                position: toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 1000,
+        })
+        setTimeout(()=>navigate("/"),2000)
       };
       
   return (
@@ -55,7 +66,7 @@ const submitHandler = (e) => {
       <textarea  name="message" placeholder='Message' id=""></textarea>
    <button className='my-button' type='submit'>Send</button>
 </form>
-
+<ToastContainer/>
     </div>
   )
 }

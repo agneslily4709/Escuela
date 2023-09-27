@@ -46,9 +46,6 @@ export const loginUser = async(req, res) => {
           console.log(err);
         }
       }
-export const getUserProfile = (req, res) =>{
-  res.send(req.rootUser);
-}
 
 export const getData = (req, res) =>{
   res.send(req.rootUser);

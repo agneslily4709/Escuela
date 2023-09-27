@@ -38,9 +38,9 @@ const AllCertificates = () => {
           <h2 className='students-name'>{cert.name} - {cert.regno}</h2>
           <div className='certificate-gallery'>
           {cert.certificates.map((c,index) =>(
-            <div className='all-single-certificates'key={index}>
-              <h5>{c.title}</h5>
-              <img src={c.selectedFile} alt=""/>
+            <div className='certificate-card'key={index}>
+              <h5 className='certificate-title'>{c.title}</h5>
+              <img className="certificate-img"src={c.selectedFile} alt=""/>
             </div>
           ))}            
           </div>

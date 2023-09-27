@@ -1,6 +1,6 @@
 import express from "express";
 import Authenticate from "../middleware/Authenticate.js";
-import {  registerUser,  loginUser,  getUserProfile,  getData,  addCertificate,  logoutUser,  getAllData, getAllNotifications, postNotification,} from "../Controller/Controller.js";
+import {  registerUser,  loginUser,  getData,  addCertificate,  logoutUser,  getAllData, getAllNotifications, postNotification,} from "../Controller/Controller.js";
 
 const router = express.Router();
 
@@ -12,7 +12,6 @@ router.post("/register", registerUser);
 
 router.post("/login", loginUser);
 
-router.get("/profile", Authenticate, getUserProfile);
 
 router.get("/getData", Authenticate, getData);
 

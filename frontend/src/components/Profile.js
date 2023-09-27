@@ -4,7 +4,7 @@ const Profile = () => {
   const [userData,setUserData] = useState({});
   const callAboutPage = async () =>{
     try{
-      const res =await fetch('http://localhost:5000/api/profile',{
+      const res =await fetch('http://localhost:5000/api/getData',{
           method:"GET",
           headers:{
             Accept:"application/json",
