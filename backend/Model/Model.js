@@ -32,21 +32,6 @@ const userSchema = new mongoose.Schema({
         type:Date,
         default:Date.now
     },
-    messages:[{
-        name:{
-            type:String,
-            required:true
-        },
-        email:{
-            type:String,
-            required:true
-        },
-        message:{
-            type:String,
-            required:true
-        }
-
-    }],
     certificates : [
         {
             title:{
@@ -95,17 +80,6 @@ userSchema.methods.generateAuthToken = async function(){
     }
 }
 
-userSchema.methods.addMessage = async function(name,email,message){
-    try{
-        this.messages = this.messages.concat({name,email,message});
-        await this.save();
-        return this.messages;
-    }catch(error){
-        console.log(error);
-    }
-
-}
-
 userSchema.methods.addCertificate = async function (title,selectedFile)
 {
     try {
@@ -117,6 +91,13 @@ userSchema.methods.addCertificate = async function (title,selectedFile)
     }
 }
 
-const User = mongoose.model("USER", userSchema);
+export const User = mongoose.model("USER", userSchema);
 
-export default User
+const notificationSchema = new mongoose.Schema({
+        message:String,
+        createdAt:{
+                type:Date,
+                default:new Date()
+        }
+})
+export const Notification = mongoose.model("NOTIFICATION",notificationSchema)

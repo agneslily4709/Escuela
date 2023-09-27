@@ -1,24 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate} from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Popup = () => {
     const navigate = useNavigate();
-
-    const yesBUtton = ()=>{
-        let link="";
-        link += prompt("Enter the Goggle sheets link : ");
-        console.log(link);
-        navigate('/sheet',{data:link})
-       }
-       const noButton = ()=>{
-           let nope = "agnes";
-           navigate('/sheet',{data:nope});
-       }
+    const [message,setMessage] = useState("")
+    const handlePost = async (e) => {
+        e.preventDefault();
+      
+        try {
+          const res = await fetch(`http://localhost:5000/api/postNotification`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message }),
+          });
+      
+          const data = await res.json();
+      
+          if (res.status === 400 || !data) {
+            toast.error(data.error, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1000,
+            });
+          } else {
+            toast.success('Announcement Posted', {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1000,
+            });
+            setTimeout(() => navigate('/staff'), 2000);
+            setMessage('');
+          }
+        } catch (error) {
+          console.error(error); // Handle fetch or JSON parsing errors here
+        }
+      };
+      
   return (
-    <div className="popup-component">
-              <h2>Would you like to add any sheets ?</h2>
-            <button className='btn btn-primary yesNoButtons' onClick={yesBUtton}>YES</button>
-            <button onClick={noButton} className='btn btn-danger yesNoButtons'>NO</button>
+    <div className="my-container">
+            <form method='POST' className='form-component'>
+    <h3 className='form-title'>Announcements</h3>
+        <input  onChange={(e)=>setMessage(e.target.value)}  placeholder="Enter Message"  type="text"  value={message}  name="mail"  required/> 
+            <button className='my-button' value="login" onClick={handlePost}>Post Announcement</button>
+    </form>
+    <ToastContainer/>
     </div>
   )
 }

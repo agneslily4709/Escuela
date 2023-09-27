@@ -45,7 +45,7 @@ const Input = () => {
             })
         });
         const out = await result.json();
-        if(result.status ==201)
+        if(result.status ===201)
         {
                 toast.success("Upload success",{
                         position: toast.POSITION.BOTTOM_RIGHT,
@@ -64,7 +64,7 @@ const Input = () => {
   return (
     <div className='my-container'>
         <form method='POST' className='form-component'>
-            <h1>CERTIFICATE DETAILS</h1>
+            <h3 className='form-title'>Certificate Details</h3>
         <input
                 placeholder="Enter title"
                 type="text"

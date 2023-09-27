@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import './styles.css'
+import '../styles.css'
 const AllCertificates = () => {
   const[allCert,setAllCert] = useState([]);
   const[loading,setLoading] = useState(false);
@@ -8,7 +8,7 @@ const AllCertificates = () => {
       const res = await fetch('http://localhost:5000/api/getAllData',{
         method:"GET",
         headers:{
-          Accept:"appllication/json",
+          Accept:"application/json",
           "Content-Type":"application/json"
         },
         credentials:"include"        
@@ -31,22 +31,22 @@ const AllCertificates = () => {
     setLoading(false);
   },[])
   return (
-    <div className='all-certificate-component'>
-      
-        {allCert && allCert.map((cert)=>(
-          <ul>
-          <li><h2>{cert.name}</h2></li>
-          <div className='all-data'>
-          {cert.certificates.map((c) =>(
-            <div className='all-single-certificates'>
+    <div className='certificate-container'>
+        <div className='all-students'>
+        {allCert && allCert.map((cert,index)=>(
+          <div key={index}>
+          <h2 className='students-name'>{cert.name} - {cert.regno}</h2>
+          <div className='certificate-gallery'>
+          {cert.certificates.map((c,index) =>(
+            <div className='all-single-certificates'key={index}>
               <h5>{c.title}</h5>
               <img src={c.selectedFile} alt=""/>
             </div>
           ))}            
           </div>
-          <hr></hr>
-          </ul>
+          </div>
         ))}
+        </div>
     </div>
   )
 }

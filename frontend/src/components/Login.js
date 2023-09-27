@@ -1,14 +1,16 @@
 import { useContext } from 'react';
 import {React,useState} from 'react';
-import {Link,useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {userContext} from "../App.js"
 import '../styles.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { login } from '../reducer/authActions';
+import Cookies from 'js-cookie';
 
 const Login = () => {
-  const {state,dispatch} = useContext(userContext);
+        const token = Cookies.get('jwtoken');
+  const {dispatch} = useContext(userContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,7 +40,8 @@ const Login = () => {
                 position: toast.POSITION.BOTTOM_RIGHT,
                 autoClose: 1000,
         })
-      dispatch({type:"USER",payload:true});
+
+        dispatch(login(token));
       setTimeout(()=>navigate("/"),2000)
     }
  }

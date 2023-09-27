@@ -30,11 +30,11 @@ useEffect(() => {
    <div className="my-container">
         <div className='profile-details'>
         <h3 className='profile-title'>Profile</h3>
-            <h5 className='profile-item'>Name : {userData.name}</h5>
-            <h5 className='profile-item'>Email : {userData.email}</h5>
-            <h5 className='profile-item'>Reg No : {userData.regno}</h5>
-            <h5 className='profile-item'>Department : {userData.dept}</h5>
-            <h5 className='profile-item'>Year : {userData.year}</h5>
+            <p className='profile-item'>Name : {userData.name}</p>
+            <p className='profile-item'>Email : {userData.email}</p>
+            <p className='profile-item'>Reg No : {userData.regno}</p>
+            <p className='profile-item'>Department : {userData.dept}</p>
+            <p className='profile-item'>Year : {userData.year}</p>
         </div>
    </div>
    </>

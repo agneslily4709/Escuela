@@ -1,11 +1,11 @@
 import React from 'react'
-import { useEffect ,useState,useContext} from 'react'
+import { useEffect,useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
 import {userContext} from "../App"
-
+import { logout } from '../reducer/authActions';
 const Logout = () => {
 
-    const {state,dispatch} = useContext(userContext);
+    const {dispatch} = useContext(userContext);
 
     const navigate = useNavigate();
     useEffect(()=>{
@@ -17,7 +17,8 @@ const Logout = () => {
             },
             credentials:'include'
         }).then((res)=>{
-            dispatch({type:"USER",payload:false});
+        //     dispatch({type:"USER",payload:false});
+        dispatch(logout());
             navigate('/login');
             if(res.status !== 200){
                 const error = new Error(res.error);

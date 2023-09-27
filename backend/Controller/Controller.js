@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import User from "../Model/Model.js";
+import {User,Notification} from "../Model/Model.js";
 
 export const registerUser = async(req, res)=> {
   const { name, email, password, regno, dept, year } = req.body;
@@ -35,7 +34,7 @@ export const loginUser = async(req, res) => {
             } else {
               const token = await userLogin.generateAuthToken();
               res.cookie("jwtoken", token, {
-                httpOnly: true,
+                httpOnly: false,
                 expires: new Date(Date.now() + 3600000),
               });
               res.status(200).json({ message: "Login success" });
@@ -55,23 +54,25 @@ export const getData = (req, res) =>{
   res.send(req.rootUser);
 }
 
-export const contactUser = async(req, res)=> {
-  try {
-    const { name, email, message } = req.body;
-    if (!name || !email || !message) {
-      return res.status(422).json({ error: "Fill all contact fields" });
-    }
-    const userContact = await User.findOne({ _id: req.rootUserId });
-    if (userContact) {
-      const userMessage = await userContact.addMessage(name, email, message);
-      await userContact.save();
-      return res.status(201).json({ message: "Message sent successfully" });
-    }
-  } catch (error) {
-    res.status(404).json({error:error})
-  }
+export const postNotification = async(req,res) => {
+        try {
+                const newNotification = new Notification({
+                  message: req.body.message,
+                });
+                await newNotification.save();
+                res.status(201).json({message:"Posted"});
+              } catch (error) {
+                res.status(400).json({ error: 'An error occurred' });
+              }
 }
-
+export const getAllNotifications = async(req,res)  => {
+        try {
+                const notifications = await Notification.find({});
+                res.status(200).json(notifications);
+              } catch (error) {
+                res.status(400).json({ error: 'An error occurred' });
+              }
+}
 export const addCertificate  =async(req, res)=> {
   try {
     const { title, selectedFile } = req.body;

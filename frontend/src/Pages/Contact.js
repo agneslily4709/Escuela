@@ -1,87 +1,71 @@
-import {React,useState,useEffect} from 'react';
-import '../styles.css'
+import {React,useState,useEffect} from 'react'
+import emailjs from 'emailjs-com';
+import '../styles.css';
 
 const Contact = () => {
-  const [userData,setUserData] = useState({
-    name:'',
-    email:'',
-    message:''
-  });
-
-  const userContact = async () =>{
+  const [userData,setUserData] = useState({});
+  const fetchData = async () =>{
     try{
-      const res =await fetch('http://localhost:5000/api/getData',{
+      const res =await fetch('http://localhost:5000/api/profile',{
           method:"GET",
           headers:{
+            Accept:"appllication/json",
             "Content-Type":"application/json"
           },
+          credentials:"include"
       });
       const data = await res.json();
-      setUserData({...userData,name:data.name,email:data.email,phone:data.phone});
-
+      setUserData(data);
       if(!res.status===200){
         const error = new Error (res.error);
         throw error;
       }
     }catch(err){
       console.log(err);
-     
-
     }
-    }
-    useEffect(() => {
-  userContact();
-}, [])
-
-// 
-const handleInputs =(e)=>{
-const name = e.target.name;
-const value = e.target.value;
-setUserData({...userData,[name]:value});
-}
-
-const contactForm = async (e)=>{
-  e.preventDefault();
-  const {name,email,phone,message} = userData;
-  const res = fetch('http://localhost:5000/api/contact',{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({name,email,phone,message})
-  })
-  const data = await res.json();
-  if( res.status == 201 ||!data){
-    window.alert("Please fill all fields");
-  }else{
-    window.alert("Message sent");
-    setUserData({...userData,message:""});
   }
-
-}
-
-
+useEffect(() => {
+  fetchData();
+}, [])
+// const [data, setData] = useState({
+//         from_name:'',
+//   subject: '',
+//   email: '',
+//   regno: '',
+//   dept: '',
+//   message:'',
+// })
+const submitHandler = (e) => {
+        e.preventDefault();
+      
+        emailjs
+          .sendForm('service_x1botxp', 'template_fzn1boi', e.target, '1ueGVojCge8VE1EvM')
+          .then((result) => {
+            console.log(result.text);
+          })
+          .catch((error) => {
+            console.error('Email sending error:', error);
+          });
+      
+        e.target.reset();
+      };
+      
   return (
-    <>
-    <div className='my-container'> 
-    <form method='POST' className='form-component'>
-    <h1 className='form-title'>Contact Form</h1>
-        {/* <label htmlFor="name" for="exampleInputEmail1" className="form-label">Name</label> */}
-         <input type="text" className="form-control" id="name" name="name" autoComplete="off" placeholder="Enter userName" value={userData.name} onChange={handleInputs} aria-describedby="emailHelp" />
-        {/* <label htmlFor="email" for="exampleInputEmail1" className="form-label">Email</label> */}
-         <input type="email" className="form-control" id="email" name="email" autoComplete="off" placeholder="Enter email"  value={userData.email} onChange={handleInputs} aria-describedby="emailHelp" />
-         {/* <label htmlFor="phone" for="exampleInputEmail1" className="form-label">Phone</label> */}
-         <input type="number" className="form-control" id="phone" name="phone" autoComplete="off" placeholder="Enter phone " value={userData.phone} onChange={handleInputs} aria-describedby="emailHelp" />
+    <div className='my-container'>
+<form onSubmit={submitHandler} className="form-component">
+    <h1 className='form-title'>Contact Admin</h1>
+      <input  placeholder='Name' type='text' value={userData.name} name='from_name' />
+      <input    placeholder='Email' type="email" value={userData.email}  name="reply_to"/>
+        <div className='row'>
+        <input className='col ms-3 me-3' placeholder='Number' type="number" name="regno" value={userData.regno} />
+      <input className='col me-3 ms-3' placeholder='Department' type="text" name="dept" value={userData.dept}/>
+        </div>
+      <input   placeholder='Subject'  type="text" name="subject"/>
+      <textarea  name="message" placeholder='Message' id=""></textarea>
+   <button className='my-button' type='submit'>Send</button>
+</form>
 
-          {/* <label htmlFor="message" for="exampleInputEmail1" className="form-label">Message</label> */}
-            <textarea placeholder="Message"  className="form-control"  name="message" value={userData.message} onChange={handleInputs}></textarea>
-
-      <button type="submit" name="submit" id="submit" value="submit" onClick={contactForm} class="my-button">Submit</button>
-      </form>      
     </div>
-
-    </>
   )
 }
-
-export default Contact
+export default Contact;

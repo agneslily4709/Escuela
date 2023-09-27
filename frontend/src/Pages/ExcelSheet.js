@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles.css';
 
 const ExcelSheet = () => {
   const [loading, setLoading] = useState(false);
   const [coluum, setColumn] = useState([]);
   const [mark, setMark] = useState([]);
-  const navigate = useNavigate();
-  let rows, cols, sid;
+  let rows, cols;
 
-  const url = 'https://docs.google.com/spreadsheets/d/';
-  const query = '/gviz/tq?';
+  const url = 'https://docs.google.com/spreadsheets/d/1ehq3HdmLc3pYj4HF0W5rQh8UafY1_AbMxHmt_HxVXcE/gviz/tq?';
 
-  sid = '1ehq3HdmLc3pYj4HF0W5rQh8UafY1_AbMxHmt_HxVXcE';
-
-  const endpt = `${url}${sid}${query}`;
-
+console.log(url)
   useEffect(() => {
     setLoading(true);
-    fetch(endpt)
+    fetch(url)
       .then((response) => response.text())
       .then((data) => {
+        console.log(data)
         const hold = data.substring(47).slice(0, -2);
         const jsonFormat = JSON.parse(hold);
         cols = jsonFormat.table.cols;
