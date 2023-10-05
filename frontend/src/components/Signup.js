@@ -52,7 +52,7 @@ const PostData = async (e) =>{
         <h3 className='form-title'>Register</h3>
             <input placeholder="Enter Name"    type="text"    value={user.name}    onChange={handleInputs}    name="name"/>
             <input onChange={handleInputs}  placeholder="Enter Mail" type="text" value={user.email} name="email"/>
-            <input onChange={handleInputs}  placeholder="Enter Password" type="text" value={user.password} name="password"/>
+            <input onChange={handleInputs}  placeholder="Enter Password" type="password" value={user.password} name="password"/>
             <div className='row' >
             <input className='col ms-3 me-3' onChange={handleInputs}  placeholder="Enter Reg No" type="text" value={user.regno} name="regno"/>
             <input className='col me-3 ms-3'  onChange={handleInputs} placeholder="Enter Dept"    type="text"    value={user.dept}    name="dept"/>
